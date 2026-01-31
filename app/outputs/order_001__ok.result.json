@@ -1,0 +1,34 @@
+{
+  "timestamp": "2026-01-31T23:37:26",
+  "order_file": "C:\\Users\\13171\\MCD_CHECKOUT\\app\\orders\\order_001.json",
+  "image_file": "C:\\Users\\13171\\MCD_CHECKOUT\\app\\demo_images\\test_01.jpg",
+  "scenario": "ok",
+  "order_items": {
+    "burger": 1,
+    "fries": 0,
+    "drink": 1,
+    "nuggets": 1
+  },
+  "detected_items": [
+    {
+      "class": "burger",
+      "count": 1
+    },
+    {
+      "class": "drink",
+      "count": 1
+    }
+  ],
+  "result": {
+    "missing": {
+      "nuggets": 1
+    },
+    "extra": {},
+    "rule_missing": {
+      "sauce": 1
+    },
+    "notes": [
+      "麦乐鸡块必须附带酱"
+    ]
+  }
+}

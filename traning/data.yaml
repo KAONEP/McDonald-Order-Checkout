@@ -1,0 +1,13 @@
+train: ../train/images
+val: ../valid/images
+test: ../test/images
+
+nc: 5
+names: ['burger', 'drink', 'fries', 'nuggets', 'sauce']
+
+roboflow:
+  workspace: mdetection-kfmy1
+  project: mc_detection
+  version: 2
+  license: Public Domain
+  url: https://universe.roboflow.com/mdetection-kfmy1/mc_detection/dataset/2

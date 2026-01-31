@@ -1,0 +1,36 @@
+{
+  "timestamp": "2026-01-31T23:38:50",
+  "order_file": "C:\\Users\\13171\\MCD_CHECKOUT\\app\\orders\\order_005.json",
+  "image_file": "C:\\Users\\13171\\MCD_CHECKOUT\\app\\demo_images\\test_05.jpg",
+  "scenario": "ok",
+  "order_items": {
+    "burger": 1,
+    "fries": 1,
+    "drink": 0,
+    "nuggets": 1
+  },
+  "detected_items": [
+    {
+      "class": "burger",
+      "count": 1
+    },
+    {
+      "class": "fries",
+      "count": 1
+    },
+    {
+      "class": "nuggets",
+      "count": 1
+    },
+    {
+      "class": "sauce",
+      "count": 1
+    }
+  ],
+  "result": {
+    "missing": {},
+    "extra": {},
+    "rule_missing": {},
+    "notes": []
+  }
+}
