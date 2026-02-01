@@ -1,9 +1,6 @@
-# src/compare.py
-
 from __future__ import annotations
 from typing import Dict, List, Any
-
-from rules import DEPENDENCIES, RULE_DESCRIPTIONS
+from .rules import DEPENDENCIES, RULE_DESCRIPTIONS
 
 
 def list_to_count_map(detected_items: List[Dict[str, Any]]) -> Dict[str, int]:

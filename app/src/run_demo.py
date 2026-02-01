@@ -4,31 +4,21 @@ import argparse
 import json
 from pathlib import Path
 from datetime import datetime
-
-# 物体検出（YOLO / mock）
-from vision_yolo import detect_items
-# from vision_mock import detect_items
-
-from compare import compare_with_rules
+from .vision_yolo import detect_items
+from .compare import compare_with_rules
 
 
 def load_order(order_path: Path) -> dict:
     data = json.loads(order_path.read_text(encoding="utf-8"))
 
-    # 注文形式チェック
     if "items" not in data or not isinstance(data["items"], dict):
         raise ValueError("order json must contain { 'items': { ... } }")
 
-    # 数量を int に統一
     data["items"] = {k: int(v) for k, v in data["items"].items()}
     return data
 
 
 def pretty_print(order_items: dict, detected_items: dict, result: dict):
-    """
-    デモ・面接向けの簡潔な表示（人間可読）
-    """
-
     # 注文内容（本来あるべきもの）
     print("\n[注文内容]:", order_items)
 
@@ -64,7 +54,7 @@ def main():
     # コマンドライン引数定義
     parser = argparse.ArgumentParser()
     parser.add_argument("--order", required=True, help="例: orders/order_001.json")
-    parser.add_argument("--image", required=True, help="例: demo_images/demo_001.jpg")
+    parser.add_argument("--image", required=True, help="例: demo_images/test_001.jpg")
     parser.add_argument(
         "--scenario",
         default="ok",

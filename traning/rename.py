@@ -1,12 +1,12 @@
 from pathlib import Path
 import re
 
-# ====== 你只需要改这里 ======
-DATASET_ROOT = r"C:\Users\13171\MCD_CHECKOUT\traning"   # 这里填包含 train/valid/test 的那一层根目录
-USE_SPLIT_PREFIX = True        # True: train_0001 / valid_0001 / test_0001
-PREFIX = "img"                 # 当 USE_SPLIT_PREFIX=False 时使用，如 img_0001
-DO_RENAME = True              # 先 False 预览；确认后改 True 真改
-# ============================
+# ============
+DATASET_ROOT = r"C:\Users\13171\MCD_CHECKOUT\training"
+USE_SPLIT_PREFIX = True
+PREFIX = "img"
+DO_RENAME = True
+# ============
 
 IMG_EXTS = {".jpg", ".jpeg", ".png", ".webp", ".bmp", ".tif", ".tiff"}
 
@@ -15,7 +15,6 @@ def natural_key(p: Path):
     return [int(t) if t.isdigit() else t.lower() for t in re.split(r"(\d+)", s)]
 
 def pick_splits(root: Path):
-    # 兼容 train/val/test 或 train/valid/test
     candidates = []
     for name in ["train", "valid", "val", "test"]:
         d = root / name
@@ -42,7 +41,6 @@ def rename_split(split_dir: Path):
         print(f"[SKIP] {split_dir.name}: images/ is empty")
         return []
 
-    # 每个 split 单独编号，补零位数按该 split 的数量
     width = max(2, len(str(len(imgs))))
 
     plan = []
@@ -59,7 +57,6 @@ def rename_split(split_dir: Path):
 
         plan.append((src, dst_img, src_lbl, dst_lbl))
 
-    # 冲突检查
     for src, dst_img, src_lbl, dst_lbl in plan:
         if dst_img.exists() and dst_img.resolve() != src.resolve():
             raise FileExistsError(f"[{split_dir.name}] target image exists: {dst_img}")
@@ -69,25 +66,21 @@ def rename_split(split_dir: Path):
     return plan
 
 def apply_plan(plan):
-    # 两段式改名：先改临时名避免撞车，再改最终名
     tmp_suffix = ".tmp_ren"
     tmp_pairs = []
 
-    # 先改图片
     for src, dst_img, src_lbl, dst_lbl in plan:
         tmp_img = src.with_name(src.name + tmp_suffix)
         if DO_RENAME:
             src.rename(tmp_img)
         tmp_pairs.append((tmp_img, dst_img))
 
-        # 再改 label（如果存在）
         if src_lbl and src_lbl.exists():
             tmp_lbl = src_lbl.with_name(src_lbl.name + tmp_suffix)
             if DO_RENAME:
                 src_lbl.rename(tmp_lbl)
             tmp_pairs.append((tmp_lbl, dst_lbl))
 
-    # 再从临时名改到最终名
     for tmp_src, final_dst in tmp_pairs:
         if DO_RENAME:
             tmp_src.rename(final_dst)

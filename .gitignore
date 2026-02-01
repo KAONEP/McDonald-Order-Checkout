@@ -1,0 +1,20 @@
+# IDE
+.idea/
+
+# caches
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+
+# runtime outputs
+app/outputs/
+outputs/
+
+# big/raw data
+data/
+datasets/
+
+# training artifacts (按你项目情况)
+runs/
+*.pt
+*.onnx
