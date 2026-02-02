@@ -27,7 +27,7 @@
 注文と画像入力 → 検出 → 注文との照合結果表示 をブラウザ上で操作できる。
 ```bash
 pip install -r requirements.txt
-streamlit streamlit run app/streamlit_app.py
+streamlit run streamlit_app.py
 ```
 
 ---
